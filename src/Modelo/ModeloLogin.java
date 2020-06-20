@@ -39,19 +39,16 @@ public class ModeloLogin extends Conexion{
                     Desconectar();
                     return p;
                 } else {
-                    Desconectar();
                     st.close();
                     return p;
                 }
 
             } else {
-                Desconectar();
                 st.close();
                 return p;
             }
 
         } catch (Exception e) {
-            Desconectar();
             System.out.println("Error: " + e);
             Persona p = null;
             return p;
