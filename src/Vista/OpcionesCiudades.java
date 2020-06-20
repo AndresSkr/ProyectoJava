@@ -14,7 +14,7 @@ public class OpcionesCiudades extends javax.swing.JFrame {
     public OpcionesCiudades(Persona p) {
 
         initComponents();
-        MostrarCiudades();
+       MostrarCiudades();
         this.p = p;
     }
 
@@ -186,7 +186,7 @@ public class OpcionesCiudades extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        new Inicio(p).setVisible(true);
+        new VistaInicio(p).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 

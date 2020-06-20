@@ -14,6 +14,10 @@ public class Ciudad {
         this.nombre = nombre;
         this.poblacion = poblacion;
     }
+     public Ciudad() {
+    }
+    
+    
 
     public String getNombre() {
         return nombre;

@@ -24,10 +24,6 @@ public class Ciudades {
         System.out.println("Conexion con: " + con + " Conexion cn: " + cn);
     }
 
-    public Ciudades(Persona p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public void InstertarCiudad(String nombre, int poblacion) {
         try {
             cn = con.getConnection();
