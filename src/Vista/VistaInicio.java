@@ -1,7 +1,5 @@
-
 package Vista;
 
-import javax.swing.JOptionPane;
 import Modelo.Persona;
 
 /**
@@ -18,10 +16,8 @@ public class VistaInicio extends javax.swing.JFrame {
     public VistaInicio(Persona p) {
         this.p = p;
         initComponents();
-        if (this.p.getCargo() == 1) {
-            lblBienvenido.setText("Bienvenido señor: " + this.p.getNombre());
-            lblCargo.setText("Cargo: Administrador");
-        }
+        inicarTodo();
+
     }
 
     /**
@@ -37,6 +33,8 @@ public class VistaInicio extends javax.swing.JFrame {
         lblCargo = new javax.swing.JLabel();
         btnCiudades = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        btnEmpleados = new javax.swing.JButton();
+        btnFactura = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -46,6 +44,10 @@ public class VistaInicio extends javax.swing.JFrame {
         btnCiudades.setText("CIUDADES");
 
         btnSalir.setText("SALIR");
+
+        btnEmpleados.setText("EMPLEADOS");
+
+        btnFactura.setText("FACTURA");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -59,33 +61,57 @@ public class VistaInicio extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(lblCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(228, 228, 228)
-                                .addComponent(btnCiudades))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(374, 374, 374)
-                                .addComponent(btnSalir)))
+                                .addComponent(btnSalir))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(lblCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 466, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(97, 97, 97)
+                .addComponent(btnEmpleados)
+                .addGap(57, 57, 57)
+                .addComponent(btnFactura)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCiudades)
+                .addGap(207, 207, 207))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(lblBienvenido, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
-                .addComponent(btnCiudades)
-                .addGap(101, 101, 101)
-                .addComponent(btnSalir)
-                .addContainerGap(351, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(53, 53, 53)
+                        .addComponent(btnCiudades)
+                        .addGap(99, 99, 99)
+                        .addComponent(btnSalir))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnEmpleados)
+                            .addComponent(btnFactura))))
+                .addContainerGap(345, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+     public void inicarTodo() {
+        if (this.p.getCargo() == 1) {
+            lblBienvenido.setText("Bienvenido señor: " + this.p.getNombre());
+            lblCargo.setText("Cargo: Administrador");
+        }else if(this.p.getCargo() == 2){
+            lblBienvenido.setText("Bienvenido señor: " + this.p.getNombre());
+            lblCargo.setText("Cargo: Empleado");
+           
+            btnEmpleados.setVisible(false);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -117,16 +143,21 @@ public class VistaInicio extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new VistaInicio(p).setVisible(true);
             }
-        });
+        }
+        );
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnCiudades;
+    public javax.swing.JButton btnEmpleados;
+    public javax.swing.JButton btnFactura;
     public javax.swing.JButton btnSalir;
     private javax.swing.JLabel lblBienvenido;
     private javax.swing.JLabel lblCargo;

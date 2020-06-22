@@ -46,23 +46,31 @@ public class ControladorCiudades implements ActionListener, KeyListener, MouseLi
             ciu = new Ciudad(vistaCiudades.txtCiudad.getText(), Integer.parseInt(vistaCiudades.txtPoblacion.getText()));
             if (ciudM.InstertarCiudad(ciu)) {
                 JOptionPane.showMessageDialog(null, "registro guardado");
+                Limpiar();
+                this.vistaCiudades.tblCiudades.setModel(ciudM.consultarCiudades());
             } else {
                 JOptionPane.showMessageDialog(null, "no se puedo registrar");
             }
 
         } else if (e.getSource() == vistaCiudades.btnEditar) {
-            
+
             int fila = vistaCiudades.tblCiudades.getSelectedRow();
             String id = (String) vistaCiudades.tblCiudades.getValueAt(fila, 0);
             if (ciudM.ActuaizarCiudades(vistaCiudades.txtCiudad.getText(), vistaCiudades.txtPoblacion.getText(), id)) {
+                Limpiar();
                 this.vistaCiudades.tblCiudades.setModel(ciudM.consultarCiudades());
             } else {
                 JOptionPane.showMessageDialog(null, "error al actualizar el registro ");
             }
 
         } else if (e.getSource() == vistaCiudades.btnEliminar) {
-
+            int fila = vistaCiudades.tblCiudades.getSelectedRow();
+            String id = (String) vistaCiudades.tblCiudades.getValueAt(fila, 0);
+            ciudM.EliminarCiudad(id);
+            Limpiar();
+            this.vistaCiudades.tblCiudades.setModel(ciudM.consultarCiudades());
         } else if (e.getSource() == vistaCiudades.btnSalir) {
+            ciudM.Desconectar();
             this.vistaCiudades.hide();
         }
     }
@@ -79,6 +87,11 @@ public class ControladorCiudades implements ActionListener, KeyListener, MouseLi
         vistaCiudades.txtCiudad.setText(vistaCiudades.tblCiudades.getValueAt(filaSelecionada, 1).toString());
         vistaCiudades.txtPoblacion.setText(vistaCiudades.tblCiudades.getValueAt(filaSelecionada, 2).toString());
 
+    }
+    
+    public void Limpiar(){
+        vistaCiudades.txtCiudad.setText("");
+        vistaCiudades.txtPoblacion.setText("");
     }
 
     @Override
