@@ -3,10 +3,15 @@ package Controlador;
 import Modelo.Ciudad;
 import Modelo.ModeloCiudad;
 import Modelo.ModeloEmpleado;
+import Modelo.ModeloFactura;
+import Modelo.ModeloProductos;
 import Modelo.Persona;
+import Modelo.Producto;
 import Vista.VistaCiudades;
 import Vista.VistaEmpleado;
+import Vista.VistaFactura;
 import Vista.VistaInicio;
+import Vista.VistaProductos;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
@@ -24,13 +29,27 @@ public class ControladorInicio implements ActionListener {
     public ControladorInicio(Persona p, VistaInicio inicioV) {
         this.p = p;
         this.inicioV = inicioV;
+        this.inicioV.btnFactura.addActionListener(this);
         this.inicioV.btnCiudades.addActionListener(this);
+        this.inicioV.btnProductos.addActionListener(this);
         this.inicioV.btnEmpleados.addActionListener(this);
         this.inicioV.btnSalir.addActionListener(this);
+
     }
 
     public void iniciar() {
         inicioV.setTitle("INICIO");
+        if (this.p.getCargo() == 1) {
+            inicioV.lblBienvenido.setText("Bienvenido señor: " + this.p.getNombre());
+            inicioV.lblCargo.setText("Cargo: Administrador");
+        } else if (this.p.getCargo() == 2) {
+            inicioV.lblBienvenido.setText("Bienvenido señor: " + this.p.getNombre());
+            inicioV.lblCargo.setText("Cargo: Empleado");
+            inicioV.btnEmpleados.setVisible(false);
+            inicioV.btnCiudades.setVisible(false);
+            inicioV.btnProductos.setVisible(false);
+        }
+
     }
 
     @Override
@@ -52,6 +71,23 @@ public class ControladorInicio implements ActionListener {
             ControladorEmpleado ControladorciEmpleado = new ControladorEmpleado(per, personaM, personaVista);
             ControladorciEmpleado.iniciar();
             personaVista.setVisible(true);
+        } else if (e.getSource() == inicioV.btnProductos) {
+            Producto pro = new Producto();
+            ModeloProductos ProdM = new ModeloProductos();
+            VistaProductos ProdVista = new VistaProductos();
+
+            ControladorProductos ControlProductos = new ControladorProductos(pro, ProdM, ProdVista);
+            ControlProductos.iniciar();
+            ProdVista.setVisible(true);
+        } else if (e.getSource() == inicioV.btnFactura) {
+            Producto pro = new Producto();
+            ModeloProductos ProdM = new ModeloProductos();
+            ModeloFactura facM = new ModeloFactura();
+            VistaFactura facturaVista = new VistaFactura();
+
+            ControladorFactura contrFactur = new ControladorFactura(p, pro, facturaVista, facM, ProdM);
+            contrFactur.iniciar();
+            facturaVista.setVisible(true);
         } else if (e.getSource() == inicioV.btnSalir) {
             if (JOptionPane.showConfirmDialog(null, "Seguro que desea salir?", "SALIR", 0) == 0) {
                 System.exit(0);

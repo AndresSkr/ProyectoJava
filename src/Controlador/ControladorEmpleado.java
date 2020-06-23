@@ -24,7 +24,6 @@ public class ControladorEmpleado implements ActionListener, KeyListener, MouseLi
         this.p = p;
         this.PersonaM = PersonaM;
         this.vistaEmpleado = vistaEmpleado;
-        this.vistaEmpleado.btnGuardar.addActionListener(this);
         this.vistaEmpleado.btnNuevo.addActionListener(this);
         this.vistaEmpleado.btnEditar.addActionListener(this);
         this.vistaEmpleado.btnEliminar.addActionListener(this);
@@ -39,11 +38,13 @@ public class ControladorEmpleado implements ActionListener, KeyListener, MouseLi
         this.vistaEmpleado.txtBuscar.addKeyListener(this);
         this.vistaEmpleado.txtContra.addActionListener(this);
         this.vistaEmpleado.tblEmpleados.addMouseListener(this);
-        this.vistaEmpleado.tblEmpleados.setModel(PersonaM.consultarEmpleado());
+       
     }
 
     public void iniciar() {
         vistaEmpleado.setTitle("Empleados");
+         this.vistaEmpleado.tblEmpleados.setModel(PersonaM.consultarEmpleado());
+        this.vistaEmpleado.jcbCargo.setEditable(false);
     }
 
     @Override
@@ -66,7 +67,7 @@ public class ControladorEmpleado implements ActionListener, KeyListener, MouseLi
             String id = (String) vistaEmpleado.tblEmpleados.getValueAt(fila, 0);
             if (PersonaM.ActuaizarEmpleado(id, vistaEmpleado.txtNombres.getText(),
                     vistaEmpleado.txtApellidos.getText(), vistaEmpleado.txtCiudad.getText(), vistaEmpleado.txtTelefono.getText())) {
-                Limpiar();
+                Habilitar();
                 this.vistaEmpleado.tblEmpleados.setModel(PersonaM.consultarEmpleado());
             } else {
                 JOptionPane.showMessageDialog(null, "error al actualizar el registro ");
@@ -90,7 +91,8 @@ public class ControladorEmpleado implements ActionListener, KeyListener, MouseLi
         vistaEmpleado.txtUsuario.setEditable(true);
         vistaEmpleado.txtContra.setEditable(true);
         vistaEmpleado.txtId.setEditable(true);
-        vistaEmpleado.jcbCargo.setEditable(true);
+        vistaEmpleado.jcbCargo.setEnabled(true);
+
         Limpiar();
     }
 
@@ -109,6 +111,8 @@ public class ControladorEmpleado implements ActionListener, KeyListener, MouseLi
     public void keyReleased(KeyEvent e) {
         //JOptionPane.showMessageDialog(null, vistaCiudades.txtBuscar.getText());
         vistaEmpleado.tblEmpleados.setModel(PersonaM.filtrarEmpleados(vistaEmpleado.txtBuscar.getText()));
+        
+       
     }
 
     @Override
@@ -123,6 +127,7 @@ public class ControladorEmpleado implements ActionListener, KeyListener, MouseLi
         vistaEmpleado.jcbCargo.setEditable(false);
         vistaEmpleado.txtUsuario.setEditable(false);
         vistaEmpleado.txtContra.setEditable(false);
+        vistaEmpleado.jcbCargo.setEnabled(false);
 
     }
 

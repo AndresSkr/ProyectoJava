@@ -11,12 +11,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Andres
  */
-public class ModeloCiudad extends Conexion {
+public class ModeloProductos extends Conexion {
 
-    public boolean InstertarCiudad(Ciudad ciu) {
+    public boolean InstertarProductos(Producto Prod) {
         try {
             Connection cn = getConnection();
-            PreparedStatement pps = cn.prepareStatement("insert into ciudades values(null,'" + ciu.getNombre() + "'," + ciu.getPoblacion() + ")");
+            PreparedStatement pps = cn.prepareStatement("insert into productos values(null,'" + Prod.getNombre() + "'," + Prod.getPrecio() + "," + Prod.getCantidad() + ")");
             pps.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -25,10 +25,10 @@ public class ModeloCiudad extends Conexion {
         }
     }
 
-    public boolean ActuaizarCiudades(String nombre, String poblacion, String id) {
+    public boolean ActuaizarProductos(String nombre, float precio, String id, int cantidad) {
         try {
             Connection cn = getConnection();
-            String query = "update ciudades set nombre='" + nombre + "',poblacion='" + poblacion + "' where id_ciudad=" + id;
+            String query = "update productos set nombreProducto='" + nombre + "',precio=" + precio + ", cantidad =" + cantidad + "  where id_Producto =" + id;
             PreparedStatement ps = cn.prepareStatement(query);
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "registro actualizado con exito");
@@ -40,35 +40,36 @@ public class ModeloCiudad extends Conexion {
 
         }
     }
-        public void EliminarCiudad(String id) {
+
+    public void EliminarProducto(String id) {
         try {
-             Connection cn = getConnection();
-            String query = "Delete from ciudades where id_ciudad=" + id;
+            Connection cn = getConnection();
+            String query = "Delete from productos where id_Producto=" + id;
             PreparedStatement ps = cn.prepareStatement(query);
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "registro eliminnado con exito");
+            JOptionPane.showMessageDialog(null, "registro eliminado con exito");
         } catch (Exception e) {
             Desconectar();
             JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }
 
-
-    public DefaultTableModel consultarCiudades() {
+    public DefaultTableModel consultarProductos() {
         try {
             Connection cn = getConnection();
-            String[] titulos = {"ID", "Nombre", "Poblacion"};
-            String query = "SELECT * FROM ciudades";
+            String[] titulos = {"ID", "Nombre", "Precio", "Cantidad"};
+            String query = "SELECT * FROM productos";
             DefaultTableModel model = new DefaultTableModel(null, titulos);
 
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(query);
-            String registros[] = new String[3];
+            String registros[] = new String[4];
 
             while (rs.next()) {
-                registros[0] = rs.getString("id_ciudad");
-                registros[1] = rs.getString("nombre");
-                registros[2] = rs.getString("poblacion");
+                registros[0] = rs.getString("id_Producto");
+                registros[1] = rs.getString("nombreProducto");
+                registros[2] = rs.getString("precio");
+                registros[3] = rs.getString("cantidad");
                 model.addRow(registros);
             }
             return model;
@@ -79,22 +80,23 @@ public class ModeloCiudad extends Conexion {
         }
     }
 
-    public DefaultTableModel filtrarCiudades(String busqueda) {
+    public DefaultTableModel filtrarProductos(String busqueda) {
         try {
             Connection cn = getConnection();
-            String[] titulos = {"ID", "Nombre", "Poblacion"};
-            String query = "SELECT * FROM ciudades where nombre like  '%" + busqueda + "%'";
+               String[] titulos = {"ID", "Nombre", "Precio", "Cantidad"};
+            String query = "SELECT * FROM productos where nombreProducto like  '%" + busqueda + "%'";
             DefaultTableModel model = new DefaultTableModel(null, titulos);
 
             Statement st = cn.createStatement();
 
             ResultSet rs = st.executeQuery(query);
-            String registros[] = new String[3];
+            String registros[] = new String[4];
 
             while (rs.next()) {
-                registros[0] = rs.getString("id_ciudad");
-                registros[1] = rs.getString("nombre");
-                registros[2] = rs.getString("poblacion");
+                registros[0] = rs.getString("id_Producto");
+                registros[1] = rs.getString("nombreProducto");
+                registros[2] = rs.getString("precio");
+                registros[3] = rs.getString("cantidad");
                 model.addRow(registros);
             }
 
