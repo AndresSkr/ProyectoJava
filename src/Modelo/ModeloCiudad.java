@@ -59,7 +59,14 @@ public class ModeloCiudad extends Conexion {
             Connection cn = getConnection();
             String[] titulos = {"ID", "Nombre", "Poblacion"};
             String query = "SELECT * FROM ciudades";
-            DefaultTableModel model = new DefaultTableModel(null, titulos);
+           DefaultTableModel model = new DefaultTableModel(null, titulos) {
+
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    //all cells false
+                    return false;
+                }
+            };
 
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(query);
@@ -84,7 +91,14 @@ public class ModeloCiudad extends Conexion {
             Connection cn = getConnection();
             String[] titulos = {"ID", "Nombre", "Poblacion"};
             String query = "SELECT * FROM ciudades where nombre like  '%" + busqueda + "%'";
-            DefaultTableModel model = new DefaultTableModel(null, titulos);
+             DefaultTableModel model = new DefaultTableModel(null, titulos) {
+
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    //all cells false
+                    return false;
+                }
+            };
 
             Statement st = cn.createStatement();
 

@@ -19,6 +19,7 @@ public class ControladorCiudades implements ActionListener, KeyListener, MouseLi
     private Ciudad ciu;
     private ModeloCiudad ciudM;
     private VistaCiudades vistaCiudades;
+    private Utilidad util;
 
     public ControladorCiudades(Ciudad ciu, ModeloCiudad ciudM, VistaCiudades vistaCiudades) {
         this.ciu = ciu;
@@ -33,6 +34,7 @@ public class ControladorCiudades implements ActionListener, KeyListener, MouseLi
         this.vistaCiudades.txtBuscar.addKeyListener(this);
         this.vistaCiudades.tblCiudades.addMouseListener(this);
         this.vistaCiudades.tblCiudades.setModel(ciudM.consultarCiudades());
+        this.util = new Utilidad();
     }
 
     public void iniciar() {
@@ -43,13 +45,17 @@ public class ControladorCiudades implements ActionListener, KeyListener, MouseLi
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == vistaCiudades.btnGuardar) {
 
-            ciu = new Ciudad(vistaCiudades.txtCiudad.getText(), Integer.parseInt(vistaCiudades.txtPoblacion.getText()));
-            if (ciudM.InstertarCiudad(ciu)) {
-                JOptionPane.showMessageDialog(null, "registro guardado");
-                Limpiar();
-                this.vistaCiudades.tblCiudades.setModel(ciudM.consultarCiudades());
+            if (util.SoloNumeros(vistaCiudades.txtPoblacion.getText())) {
+                ciu = new Ciudad(vistaCiudades.txtCiudad.getText(), Integer.parseInt(vistaCiudades.txtPoblacion.getText()));
+                if (ciudM.InstertarCiudad(ciu)) {
+                    JOptionPane.showMessageDialog(null, "registro guardado");
+                    Limpiar();
+                    this.vistaCiudades.tblCiudades.setModel(ciudM.consultarCiudades());
+                } else {
+                    JOptionPane.showMessageDialog(null, "no se puedo registrar");
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "no se puedo registrar");
+                JOptionPane.showMessageDialog(null, "Ingrese los datos correctamente");
             }
 
         } else if (e.getSource() == vistaCiudades.btnEditar) {
@@ -88,8 +94,8 @@ public class ControladorCiudades implements ActionListener, KeyListener, MouseLi
         vistaCiudades.txtPoblacion.setText(vistaCiudades.tblCiudades.getValueAt(filaSelecionada, 2).toString());
 
     }
-    
-    public void Limpiar(){
+
+    public void Limpiar() {
         vistaCiudades.txtCiudad.setText("");
         vistaCiudades.txtPoblacion.setText("");
     }

@@ -59,7 +59,14 @@ public class ModeloProductos extends Conexion {
             Connection cn = getConnection();
             String[] titulos = {"ID", "Nombre", "Precio", "Cantidad"};
             String query = "SELECT * FROM productos";
-            DefaultTableModel model = new DefaultTableModel(null, titulos);
+            DefaultTableModel model = new DefaultTableModel(null, titulos) {
+
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    //all cells false
+                    return false;
+                }
+            };
 
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(query);
@@ -83,9 +90,16 @@ public class ModeloProductos extends Conexion {
     public DefaultTableModel filtrarProductos(String busqueda) {
         try {
             Connection cn = getConnection();
-               String[] titulos = {"ID", "Nombre", "Precio", "Cantidad"};
+            String[] titulos = {"ID", "Nombre", "Precio", "Cantidad"};
             String query = "SELECT * FROM productos where nombreProducto like  '%" + busqueda + "%'";
-            DefaultTableModel model = new DefaultTableModel(null, titulos);
+            DefaultTableModel model = new DefaultTableModel(null, titulos) {
+
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    //all cells false
+                    return false;
+                }
+            };
 
             Statement st = cn.createStatement();
 

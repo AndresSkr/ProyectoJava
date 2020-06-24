@@ -40,14 +40,19 @@ public class VistaInicio extends javax.swing.JFrame {
 
         lblBienvenido.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
 
+        btnCiudades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/urban.png"))); // NOI18N
         btnCiudades.setText("CIUDADES");
 
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/logout.png"))); // NOI18N
         btnSalir.setText("SALIR");
 
+        btnEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/name.png"))); // NOI18N
         btnEmpleados.setText("EMPLEADOS");
 
+        btnFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/buy.png"))); // NOI18N
         btnFactura.setText("FACTURA");
 
+        btnProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/product.png"))); // NOI18N
         btnProductos.setText("PRODUCTOS");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -55,15 +60,15 @@ public class VistaInicio extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(94, 94, 94)
+                .addGap(70, 70, 70)
                 .addComponent(btnEmpleados)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(36, 36, 36)
                 .addComponent(btnProductos)
                 .addGap(18, 18, 18)
-                .addComponent(btnFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnCiudades)
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -71,10 +76,9 @@ public class VistaInicio extends javax.swing.JFrame {
                         .addComponent(lblBienvenido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(lblCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSalir)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSalir)
+                            .addComponent(lblCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -91,9 +95,9 @@ public class VistaInicio extends javax.swing.JFrame {
                     .addComponent(btnFactura)
                     .addComponent(btnProductos)
                     .addComponent(btnCiudades))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                 .addComponent(btnSalir)
-                .addContainerGap())
+                .addGap(14, 14, 14))
         );
 
         pack();

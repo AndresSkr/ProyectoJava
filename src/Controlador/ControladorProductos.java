@@ -19,6 +19,7 @@ public class ControladorProductos implements ActionListener, KeyListener, MouseL
     private Producto prod;
     private ModeloProductos prodM;
     private VistaProductos ProducVista;
+    private Utilidad util;
 
     public ControladorProductos(Producto prod, ModeloProductos prodM, VistaProductos ProducVista) {
         this.prod = prod;
@@ -34,6 +35,7 @@ public class ControladorProductos implements ActionListener, KeyListener, MouseL
         this.ProducVista.txtBuscar.addKeyListener(this);
         this.ProducVista.tblProductos.addMouseListener(this);
         this.ProducVista.tblProductos.setModel(prodM.consultarProductos());
+        this.util = new Utilidad();
     }
 
     public void iniciar() {
@@ -44,13 +46,17 @@ public class ControladorProductos implements ActionListener, KeyListener, MouseL
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == ProducVista.btnGuardar) {
 
-            prod = new Producto(ProducVista.txtNombre.getText(), Float.parseFloat(ProducVista.txtPrecio.getText()), Integer.parseInt(ProducVista.txtCantidad.getText()), 1);
-            if (prodM.InstertarProductos(prod)) {
-                JOptionPane.showMessageDialog(null, "registro guardado");
-                Limpiar();
-                this.ProducVista.tblProductos.setModel(prodM.consultarProductos());
+            if (util.SoloNumeros(ProducVista.txtCantidad.getText()) && ProducVista.txtNombre.getText() != "" && ProducVista.txtPrecio.getText() != "") {
+                prod = new Producto(ProducVista.txtNombre.getText(), Float.parseFloat(ProducVista.txtPrecio.getText()), Integer.parseInt(ProducVista.txtCantidad.getText()), 1);
+                if (prodM.InstertarProductos(prod)) {
+                    JOptionPane.showMessageDialog(null, "registro guardado");
+                    Limpiar();
+                    this.ProducVista.tblProductos.setModel(prodM.consultarProductos());
+                } else {
+                    JOptionPane.showMessageDialog(null, "no se puedo registrar");
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "no se puedo registrar");
+                JOptionPane.showMessageDialog(null, "ingrese todos los datos correctamente");
             }
 
         } else if (e.getSource() == ProducVista.btnEditar) {

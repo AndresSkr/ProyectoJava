@@ -69,7 +69,14 @@ public class ModeloEmpleado extends Conexion {
             Connection cn = getConnection();
             String[] titulos = {"ID", "Nombres", "Apellidos","Ciudad","Telefono","Id del usuario"};
             String query = "SELECT * FROM Empleados";
-            DefaultTableModel model = new DefaultTableModel(null, titulos);
+             DefaultTableModel model = new DefaultTableModel(null, titulos) {
+
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    //all cells false
+                    return false;
+                }
+            };
 
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(query);
@@ -96,7 +103,14 @@ public class ModeloEmpleado extends Conexion {
             Connection cn = getConnection();
              String[] titulos = {"ID", "Nombres", "Apellidos","Ciudad","Telefono"};
             String query = "SELECT * FROM empleados where nombres like  '%" + busqueda + "%'";
-            DefaultTableModel model = new DefaultTableModel(null, titulos);
+            DefaultTableModel model = new DefaultTableModel(null, titulos) {
+
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    //all cells false
+                    return false;
+                }
+            };
 
             Statement st = cn.createStatement();
 

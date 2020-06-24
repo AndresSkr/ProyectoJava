@@ -19,11 +19,14 @@ public class ControladorEmpleado implements ActionListener, KeyListener, MouseLi
     private Persona p;
     private ModeloEmpleado PersonaM;
     private VistaEmpleado vistaEmpleado;
+    private Utilidad util;
 
     public ControladorEmpleado(Persona p, ModeloEmpleado PersonaM, VistaEmpleado vistaEmpleado) {
         this.p = p;
         this.PersonaM = PersonaM;
         this.vistaEmpleado = vistaEmpleado;
+        
+        this.vistaEmpleado.btnGuardar.addActionListener(this);
         this.vistaEmpleado.btnNuevo.addActionListener(this);
         this.vistaEmpleado.btnEditar.addActionListener(this);
         this.vistaEmpleado.btnEliminar.addActionListener(this);
@@ -38,27 +41,31 @@ public class ControladorEmpleado implements ActionListener, KeyListener, MouseLi
         this.vistaEmpleado.txtBuscar.addKeyListener(this);
         this.vistaEmpleado.txtContra.addActionListener(this);
         this.vistaEmpleado.tblEmpleados.addMouseListener(this);
-       
+        this.util = new Utilidad();
     }
 
     public void iniciar() {
         vistaEmpleado.setTitle("Empleados");
-         this.vistaEmpleado.tblEmpleados.setModel(PersonaM.consultarEmpleado());
+        this.vistaEmpleado.tblEmpleados.setModel(PersonaM.consultarEmpleado());
         this.vistaEmpleado.jcbCargo.setEditable(false);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == vistaEmpleado.btnGuardar) {
-
-            p = new Persona(vistaEmpleado.txtNombres.getText(), vistaEmpleado.txtApellidos.getText(),
-                    vistaEmpleado.txtCiudad.getText(), vistaEmpleado.txtId.getText(), vistaEmpleado.txtTelefono.getText(), vistaEmpleado.jcbCargo.getSelectedIndex());
-            if (PersonaM.InstertarEmpleado(p, vistaEmpleado.txtUsuario.getText(), vistaEmpleado.txtContra.getText())) {
-                JOptionPane.showMessageDialog(null, "registro guardado");
-                Limpiar();
-                this.vistaEmpleado.tblEmpleados.setModel(PersonaM.consultarEmpleado());
-            } else {
-                JOptionPane.showMessageDialog(null, "no se puedo registrar");
+            if (util.SoloNumeros(vistaEmpleado.txtId.getText()) && util.SoloNumeros(vistaEmpleado.txtTelefono.getText()) && vistaEmpleado.jcbCargo.getSelectedIndex()!=0  ) {
+                p = new Persona(vistaEmpleado.txtNombres.getText(), vistaEmpleado.txtApellidos.getText(),
+                        vistaEmpleado.txtCiudad.getText(), vistaEmpleado.txtId.getText(), vistaEmpleado.txtTelefono.getText(), vistaEmpleado.jcbCargo.getSelectedIndex());
+                if (PersonaM.InstertarEmpleado(p, vistaEmpleado.txtUsuario.getText(), vistaEmpleado.txtContra.getText())) {
+                    JOptionPane.showMessageDialog(null, "registro guardado");
+                    Limpiar();
+                    this.vistaEmpleado.tblEmpleados.setModel(PersonaM.consultarEmpleado());
+                } else {
+                    JOptionPane.showMessageDialog(null, "no se puedo registrar");
+                }
+               JOptionPane.showMessageDialog(null, "ingreso correcto");
+            }else{
+                JOptionPane.showMessageDialog(null, "ingrese los datos corectamente");
             }
 
         } else if (e.getSource() == vistaEmpleado.btnEditar) {
@@ -111,8 +118,7 @@ public class ControladorEmpleado implements ActionListener, KeyListener, MouseLi
     public void keyReleased(KeyEvent e) {
         //JOptionPane.showMessageDialog(null, vistaCiudades.txtBuscar.getText());
         vistaEmpleado.tblEmpleados.setModel(PersonaM.filtrarEmpleados(vistaEmpleado.txtBuscar.getText()));
-        
-       
+
     }
 
     @Override
